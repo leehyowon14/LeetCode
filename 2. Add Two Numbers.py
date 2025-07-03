@@ -6,17 +6,26 @@
 #         self.val = val
 #         self.next: ListNode | None = next
 
+class ListIter:
+    def __init__(self, listNode):
+        self.listNode = listNode
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.listNode is None:
+            raise StopIteration
+        current = self.listNode.val
+        self.listNode = self.listNode.next
+        return current
+
+
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        first_num = [l1.val]
-        while l1.next is not None:
-            l1 = l1.next
-            first_num.append(l1.val)
+        first_num = list(ListIter(l1))
 
-        second_num = [l2.val]
-        while l2.next is not None:
-            l2 = l2.next
-            second_num.append(l2.val)
+        second_num = list(ListIter(l2))
 
         result = sum((10 ** i) * num for i, num in enumerate(first_num)) + \
             sum((10 ** i) * num for i, num in enumerate(second_num))
