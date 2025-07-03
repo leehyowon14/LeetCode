@@ -23,12 +23,14 @@ class ListIter:
 
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        first_num = list(ListIter(l1))
-
-        second_num = list(ListIter(l2))
-
-        result = sum((10 ** i) * num for i, num in enumerate(first_num)) + \
-            sum((10 ** i) * num for i, num in enumerate(second_num))
+        num_list = list(ListIter(l1))
+        num_list_len = len(num_list)
+        for idx, num in enumerate(ListIter(l2)):
+            if idx >= num_list_len:
+                num_list.append(num)
+                continue
+            num_list[idx] += num
+        result = sum((10 ** i) * num for i, num in enumerate(num_list))
 
         total, digit = divmod(result, 10)
         original = ListNode(digit)
