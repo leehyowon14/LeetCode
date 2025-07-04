@@ -2,7 +2,7 @@
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        char_list: list[str] = [char for char in list(s)]
+        char_list: list[str] = list(s)
         num_max = 0
         current_num = 0
 
